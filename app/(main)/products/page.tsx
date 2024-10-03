@@ -92,17 +92,25 @@ const Crud = () => {
         setSubmitted(true);
 
         if (product.name.trim()) {
-            axios.post('product/', product).then((response) => {
-                setProducts([...products, response.data]);
-                setProductDialog(false);
-                setProduct(emptyProduct);
-                toast.current?.show({
-                    severity: 'success',
-                    summary: 'Successful',
-                    detail: 'Producto guardado',
-                    life: 3000
+            const { name, description, price, category } = product;
+            axios
+                .post('product/', {
+                    name,
+                    description,
+                    price,
+                    category: 'Categoria'
+                })
+                .then((response) => {
+                    setProducts([...products, response.data.data.product]);
+                    setProductDialog(false);
+                    setProduct(emptyProduct);
+                    toast.current?.show({
+                        severity: 'success',
+                        summary: 'Successful',
+                        detail: 'Producto guardado',
+                        life: 3000
+                    });
                 });
-            });
         }
     };
 
@@ -113,10 +121,11 @@ const Crud = () => {
 
     const confirmDeleteProduct = async (product: Products) => {
         setDeleteProductDialog(true);
+        setProduct(product);
     };
 
     const deleteProduct = async () => {
-        const response = (await axios.put(`/product/${selectedProducts.id}/disable`)) as any;
+        const response = (await axios.put(`/product/${product.id}/disable`)) as any;
 
         response.status !== 200 &&
             toast.current?.show({
@@ -126,7 +135,7 @@ const Crud = () => {
                 life: 3000
             });
 
-        let _products = (products as any)?.filter((val: any) => val.id !== selectedProducts.id);
+        let _products = (products as any)?.filter((val: any) => val.id !== product.id);
 
         setProducts(_products);
 
@@ -239,7 +248,7 @@ const Crud = () => {
         return (
             <>
                 <span className="p-column-title">Code</span>
-                {rowData.id}
+                {rowData?.id}
             </>
         );
     };
@@ -248,7 +257,7 @@ const Crud = () => {
         return (
             <>
                 <span className="p-column-title">Name</span>
-                {rowData.name}
+                {rowData?.name}
             </>
         );
     };
@@ -257,7 +266,7 @@ const Crud = () => {
         return (
             <>
                 <span className="p-column-title">Description</span>
-                {rowData.description}
+                {rowData?.description}
             </>
         );
     };
@@ -437,10 +446,6 @@ const Crud = () => {
                             <div className="field col">
                                 <label htmlFor="price">Price</label>
                                 <InputNumber id="price" value={product.price} onValueChange={(e) => onInputNumberChange(e, 'price')} />
-                            </div>
-                            <div className="field col">
-                                <label htmlFor="quantity">Quantity</label>
-                                <InputNumber id="quantity" value={product.quantity} onValueChange={(e) => onInputNumberChange(e, 'quantity')} />
                             </div>
                         </div>
                     </Dialog>
