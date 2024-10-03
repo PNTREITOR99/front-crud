@@ -2,7 +2,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+1. Primero instalar todas las dependencias de node
+
+```bash
+npm install
+
+```
+
+2. Cambiar la ruta donde está ejecutando el servidor en layout.tsx - app y poner la ruta de su servidor
+
+axios.defaults.baseURL = 'http://127.0.0.1:5000';
+
+3. Ejecutar el servidor
 
 ```bash
 npm run dev
@@ -13,12 +24,3 @@ pnpm dev
 # or
 bun dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
