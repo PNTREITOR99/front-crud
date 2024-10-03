@@ -94,26 +94,43 @@ const Crud = () => {
     const saveProduct = () => {
         setSubmitted(true);
 
-        if (product.name.trim()) {
-            const { name, description, price, category } = product;
-            axios
-                .post('product/', {
-                    name,
-                    description,
-                    price,
-                    category: 'Categoria'
-                })
-                .then((response) => {
-                    setProducts([...products, response.data.data.product]);
-                    setProductDialog(false);
-                    setProduct(emptyProduct);
-                    toast.current?.show({
-                        severity: 'success',
-                        summary: 'Successful',
-                        detail: 'Producto guardado',
-                        life: 3000
-                    });
+        if (product.id) {
+            axios.put(`/product/${product.id}`, product).then((response) => {
+                const _products = [...products];
+                const index = findIndexById(product.id as any);
+                _products[index] = product;
+                setProducts(_products);
+                setProductDialog(false);
+                setProduct(emptyProduct);
+                toast.current?.show({
+                    severity: 'success',
+                    summary: 'Successful',
+                    detail: 'Producto actualizado',
+                    life: 3000
                 });
+            });
+        } else {
+            if (product.name.trim()) {
+                const { name, description, price, category } = product;
+                axios
+                    .post('product/', {
+                        name,
+                        description,
+                        price,
+                        category: 'Categoria'
+                    })
+                    .then((response) => {
+                        setProducts([...products, response.data.data.product]);
+                        setProductDialog(false);
+                        setProduct(emptyProduct);
+                        toast.current?.show({
+                            severity: 'success',
+                            summary: 'Successful',
+                            detail: 'Producto guardado',
+                            life: 3000
+                        });
+                    });
+            }
         }
     };
 
@@ -162,15 +179,6 @@ const Crud = () => {
         }
 
         return index;
-    };
-
-    const createId = () => {
-        let id = '';
-        let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for (let i = 0; i < 5; i++) {
-            id += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return id;
     };
 
     const exportCSV = () => {
@@ -341,7 +349,7 @@ const Crud = () => {
     const productDialogFooter = (
         <>
             <Button label="Cancelar" icon="pi pi-times" text onClick={hideDialog} />
-            <Button label="Guardar" icon="pi pi-check" text onClick={saveProduct} />
+            <Button label={product.id ? 'Actualizar' : 'Guardar'} icon="pi pi-check" text onClick={saveProduct} />
         </>
     );
     const deleteProductDialogFooter = (
@@ -388,8 +396,9 @@ const Crud = () => {
                         <Column field="description" header="Descripción" sortable body={descriptionBodyTemplate} headerStyle={{ minWidth: '15rem' }}></Column>
                         <Column field="price" header="Precio" body={priceBodyTemplate} sortable></Column>
                         <Column field="category" header="Categoría" sortable body={categoryBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
-                        {/* <Column field="rating" header="Reviews" body={ratingBodyTemplate} sortable></Column>
-                        <Column field="inventoryStatus" header="Status" body={statusBodyTemplate} sortable headerStyle={{ minWidth: '10rem' }}></Column> */}
+                        <Column field="user_creation" header="Creado por:" sortable headerStyle={{ minWidth: '10rem' }}></Column>
+                        <Column field="user_modification" header="Modificado por:" sortable headerStyle={{ minWidth: '10rem' }}></Column>
+
                         <Column body={actionBodyTemplate} headerStyle={{ minWidth: '10rem' }}></Column>
                     </DataTable>
 
