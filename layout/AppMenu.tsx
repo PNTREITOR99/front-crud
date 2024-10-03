@@ -15,7 +15,7 @@ const AppMenu = () => {
             label: 'Productos',
             icon: 'pi pi-fw pi-book',
             items: [
-                { label: 'Listado', icon: 'pi pi-fw pi-list', to: '/products' }
+                { label: 'Listado', icon: 'pi pi-fw pi-list', to: '/' }
                 // { label: 'Crear', icon: 'pi pi-fw pi-plus', to: '/products/create' }
             ]
         },
