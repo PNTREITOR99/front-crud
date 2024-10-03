@@ -255,7 +255,7 @@ const Crud = () => {
         );
     };
 
-    const codeBodyTemplate = (rowData: Demo.Product) => {
+    const codeBodyTemplate = (rowData: Products) => {
         return (
             <>
                 <span className="p-column-title">Code</span>
@@ -264,7 +264,7 @@ const Crud = () => {
         );
     };
 
-    const nameBodyTemplate = (rowData: Demo.Product) => {
+    const nameBodyTemplate = (rowData: Products) => {
         return (
             <>
                 <span className="p-column-title">Name</span>
@@ -273,7 +273,7 @@ const Crud = () => {
         );
     };
 
-    const descriptionBodyTemplate = (rowData: Demo.Product) => {
+    const descriptionBodyTemplate = (rowData: Products) => {
         return (
             <>
                 <span className="p-column-title">Description</span>
@@ -282,7 +282,7 @@ const Crud = () => {
         );
     };
 
-    const priceBodyTemplate = (rowData: Demo.Product) => {
+    const priceBodyTemplate = (rowData: Products) => {
         return (
             <>
                 <span className="p-column-title">Price</span>
@@ -291,7 +291,7 @@ const Crud = () => {
         );
     };
 
-    const categoryBodyTemplate = (rowData: Demo.Product) => {
+    const categoryBodyTemplate = (rowData: Products) => {
         return (
             <>
                 <span className="p-column-title">Category</span>
@@ -300,25 +300,7 @@ const Crud = () => {
         );
     };
 
-    const ratingBodyTemplate = (rowData: Demo.Product) => {
-        return (
-            <>
-                <span className="p-column-title">Reviews</span>
-                <Rating value={rowData.rating} readOnly cancel={false} />
-            </>
-        );
-    };
-
-    const statusBodyTemplate = (rowData: Demo.Product) => {
-        return (
-            <>
-                <span className="p-column-title">Status</span>
-                <span className={`product-badge status-${rowData.inventoryStatus?.toLowerCase()}`}>{rowData.inventoryStatus}</span>
-            </>
-        );
-    };
-
-    const actionBodyTemplate = (rowData: Demo.Product) => {
+    const actionBodyTemplate = (rowData: Products) => {
         return (
             <>
                 <Button icon="pi pi-pencil" rounded severity="success" className="mr-2" onClick={() => editProduct(rowData)} />
