@@ -51,7 +51,10 @@ const Crud = () => {
     const dt = useRef<DataTable<any>>(null);
 
     useEffect(() => {
-        ProductService.getProducts().then((data) => setProducts(data));
+        if (localStorage.getItem('access_token')) {
+            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+            ProductService.getProducts().then((data) => setProducts(data));
+        }
     }, []);
 
     const formatCurrency = (value: number) => {

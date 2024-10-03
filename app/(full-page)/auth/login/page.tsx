@@ -13,7 +13,7 @@ import axios from 'axios';
 const LoginPage = () => {
     const [credentials, setCredentials] = useState({
         username: 'jdoe',
-        password: 'Jdoe2024'
+        password: 'Jdoe2024*'
     });
     const [checked, setChecked] = useState(false);
     const { layoutConfig } = useContext(LayoutContext);
@@ -23,20 +23,16 @@ const LoginPage = () => {
 
     const handleSubmit = async () => {
         try {
-            /*  const response = await axios.post('auth/login', {
+            const response = await axios.post('auth/login', {
                 username: credentials.username,
                 password: credentials.password
             });
 
-            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.auth.access_token}`; */
-            const token =
-                'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyNzkyNjE3NiwianRpIjoiZGRmMDA2NzUtNmZkNS00NmVmLWEyNGMtNWI4NWYzOTM1NzRkIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MSwidXNlcm5hbWUiOiJqZG9lIiwibmFtZSI6IkpvaG4iLCJsYXN0bmFtZSI6IkRvZSIsImVtYWlsIjoiam9obi5kb2VAZXhhbXBsZS5jb20ifSwibmJmIjoxNzI3OTI2MTc2LCJjc3JmIjoiNDI1MjQ4ZDktNzY0MS00YTY4LWJjNjctM2NjYzk4OTYyNjg0IiwiZXhwIjoxNzU5NDYyMTc2fQ.jDNl2sBy_qCpOMbyIsECIe7AOvRgOkMFeVwEYUxWujRlu7ody9J6YfRm5K3PkkI6zQZu0QKFs8BP8NVelcefXTCXP2U5AtKxXvPyIxrntyD0ZUYYgPOG9aoNbckcofIO5X55D_xxTwbwn0F0E6llwOQYEJhBwWhgy799Yhe--zKxBOC4p2O4Bd56jkVg6lJIa0teoARhyeHylf_GyRX-7c3HTkntPonMcy8mPOAVlHXweTsBn_JZcsuM5mhQA0bGIarN_ho1hMBhRue39WESYp4KaAHWJJ1Rq7w5qGyCStH4j_lO3kTyN5ws5FDt20O3vlYzCyd0E1fxWOOfJZLlAg';
-            axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.auth.access_token}`;
+
+            localStorage.setItem('access_token', response.data.data.auth.access_token);
 
             router.push('/products');
-            /*   axios.defaults.headers.common[
-                'Authorization'
-            ] = `Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcyNzkyMjkwOSwianRpIjoiYjQxMDk2NTYtZTk0MS00ODE5LTk2N2QtOTE5MThmMTkyYzI2IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6eyJpZCI6MSwidXNlcm5hbWUiOiJuYWxhdmEiLCJuYW1lIjoiTmljbyIsImxhc3RuYW1lIjoiQWxhdmEiLCJlbWFpbCI6Im5pY29AZXhhbXBsZS5jb20ifSwibmJmIjoxNzI3OTIyOTA5LCJjc3JmIjoiZTAyNGQ1NmYtODc0OS00NDY4LTg4NmQtM2IzZjBkODVmNGIzIiwiZXhwIjoxNzI3OTI2NTA5fQ.ZED393pBhPnKAGtlPbwuQn5bS3r01wKAY6fyBJIBTI3yvwOENXXl0tlQFc7iR6KaJpVTadK3Goi5fynIeMDrI3NfdioRlCyVp2B8gxiUFrl53U_4evO_lr-YyBNgTl7Zm4hjPXo3L0IjsvT-AyTx-1MqTVlnbu-CtWZdQ05pc3NKCgJecd477m_KuuoEEM2r5fVvLVVqAxK8mCxfL4Ma9dWKAPtJ_s1MzAPr06EG1fNd-_OgsyXp4_GF5llVn_GKPPk_d1mleKbtczG3JDcA3WsT7q7HHQQ0bpZlymG2Z4iOcO2s53X8TQW1BisytoLRcCoMYB6A9ni03587un44bg`; */
         } catch (e) {
             alert('Error al iniciar sesión');
             console.log(e);

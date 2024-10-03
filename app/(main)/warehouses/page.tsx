@@ -18,6 +18,7 @@ import { Demo } from '@/types';
 import { ProductService } from '@/demo/service/ProductService';
 import { FilterMatchMode } from 'primereact/api';
 import { warehouse } from '@/types/warehouses';
+import axios from 'axios';
 
 /* @todo Used 'as any' for types here. Will fix in next version due to onSelectionChange event type issue. */
 const WarehousesPage = () => {
@@ -54,6 +55,10 @@ const WarehousesPage = () => {
             currency: 'USD'
         });
     };
+
+    useEffect(() => {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+    }, []);
 
     const openNew = () => {
         setProduct(emptyProduct);
